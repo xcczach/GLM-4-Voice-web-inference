@@ -59,9 +59,9 @@ python web_demo.py
 
 https://github.com/user-attachments/assets/4e3d9200-076d-4c28-a641-99df3af38eb0
 
-* 用激动的声音解说足球射门
+* 用激动的声音解说足球比赛
 
-https://github.com/user-attachments/assets/812cd9ce-f236-4085-9f24-ccd530936525
+https://github.com/user-attachments/assets/0163de2d-e876-4999-b1bc-bbfa364b799b
 
 * 用哀怨的声音讲一个鬼故事
 
