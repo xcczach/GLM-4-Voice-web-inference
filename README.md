@@ -57,9 +57,15 @@ python web_demo.py
 
 * 用轻柔的声音引导我放松
 
+https://github.com/user-attachments/assets/4e3d9200-076d-4c28-a641-99df3af38eb0
+
 * 用激动的声音解说足球射门
 
+https://github.com/user-attachments/assets/812cd9ce-f236-4085-9f24-ccd530936525
+
 * 用哀怨的声音讲一个鬼故事
+
+https://github.com/user-attachments/assets/3dc85f6d-5be8-407a-b9c5-f8816c56f6a3
 
 * 用东北话介绍一下冬天有多冷
 
@@ -67,12 +73,19 @@ https://github.com/user-attachments/assets/91ba54a1-8f5c-4cfe-8e87-16ed1ecf4037
 
 * 用重庆话念“吃葡萄不吐葡萄皮”
 
+https://github.com/user-attachments/assets/7eb72461-9e84-4d8e-9c58-1809cf6a8a9b
+
 * 用北京话念一句绕口令
+
+https://github.com/user-attachments/assets/a9bb223e-9c0a-440d-8537-0a7f16e31651
+
   * 加快语速
+
+https://github.com/user-attachments/assets/c98a4604-366b-4304-917f-3c850a82fe9f
+
   * 再快一点
 
-
-
+https://github.com/user-attachments/assets/d5ff0815-74f8-4738-b0f1-477cfc8dcc2d
 
 ## Acknowledge
 本项目的部分代码来自：
