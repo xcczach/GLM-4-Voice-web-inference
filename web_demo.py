@@ -1,10 +1,11 @@
 import json
+import os.path
 import tempfile
-from pathlib import Path
 import sys
 import re
 import uuid
 import requests
+from argparse import ArgumentParser
 
 import torchaudio
 from transformers import WhisperFeatureExtractor, AutoTokenizer, AutoModel
@@ -24,9 +25,17 @@ audio_token_pattern = re.compile(r"<\|audio_(\d+)\|>")
 from flow_inference import AudioDecoder
 
 if __name__ == "__main__":
-    flow_config = "./glm-4-voice-decoder/config.yaml"
-    flow_checkpoint = './glm-4-voice-decoder/flow.pt'
-    hift_checkpoint = './glm-4-voice-decoder/hift.pt'
+    parser = ArgumentParser()
+    parser.add_argument("--host", type=int, default="0.0.0.0")
+    parser.add_argument("--port", type=int, default="8888")
+    parser.add_argument("--flow-path", type=str, default="./glm-4-voice-decoder")
+    parser.add_argument("--model-path", type=str, default="THUDM/glm-4-voice-9b")
+    parser.add_argument("--tokenizer-path", type=str, default="THUDM/glm-4-voice-tokenizer")
+    args = parser.parse_args()
+
+    flow_config = os.path.join(args.flow_path, "config.yaml")
+    flow_checkpoint = os.path.join(args.flow_path, 'flow.pt')
+    hift_checkpoint = os.path.join(args.flow_path, 'hift.pt')
     glm_tokenizer = None
     device = "cuda"
     audio_decoder: AudioDecoder = None
@@ -39,7 +48,7 @@ if __name__ == "__main__":
             return
 
         # GLM
-        glm_tokenizer = AutoTokenizer.from_pretrained("/workspace/zxdu/glm-4-voice-9b", trust_remote_code=True)
+        glm_tokenizer = AutoTokenizer.from_pretrained(args.model_path, trust_remote_code=True)
 
         # Flow & Hift
         audio_decoder = AudioDecoder(config_path=flow_config, flow_ckpt_path=flow_checkpoint,
@@ -47,9 +56,8 @@ if __name__ == "__main__":
                                      device=device)
 
         # Speech tokenizer
-        pretrained_path = "/workspace/zxdu/glm-4-voice-tokenizer"
-        whisper_model = WhisperVQEncoder.from_pretrained(pretrained_path).eval().to(device)
-        feature_extractor = WhisperFeatureExtractor.from_pretrained(pretrained_path)
+        whisper_model = WhisperVQEncoder.from_pretrained(args.tokenizer_path).eval().to(device)
+        feature_extractor = WhisperFeatureExtractor.from_pretrained(args.tokenizer_path)
 
 
     def clear_fn():
@@ -246,6 +254,6 @@ if __name__ == "__main__":
     initialize_fn()
     # Launch the interface
     demo.launch(
-        server_port=8888,
-        server_name='0.0.0.0'
+        server_port=args.port,
+        server_name=args.host
     )
