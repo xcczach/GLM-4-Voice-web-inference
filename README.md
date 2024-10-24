@@ -63,6 +63,8 @@ python web_demo.py
 
 * 用东北话介绍一下冬天有多冷
 
+https://github.com/user-attachments/assets/91ba54a1-8f5c-4cfe-8e87-16ed1ecf4037
+
 * 用重庆话念“吃葡萄不吐葡萄皮”
 
 * 用北京话念一句绕口令
