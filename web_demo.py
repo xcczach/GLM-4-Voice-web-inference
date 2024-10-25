@@ -103,7 +103,6 @@ if __name__ == "__main__":
             inputs += f"<|system|>\n{system_prompt}"
         inputs += f"<|user|>\n{user_input}<|assistant|>streaming_transcription\n"
 
-        print(inputs)
         with torch.no_grad():
             response = requests.post(
                 "http://localhost:10000/generate_stream",
@@ -158,7 +157,6 @@ if __name__ == "__main__":
         tts_speech = torch.cat(tts_speechs, dim=-1).cpu()
         complete_text = glm_tokenizer.decode(complete_tokens, spaces_between_special_tokens=False)
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as f:
-            print(f.name)
             torchaudio.save(f, tts_speech.unsqueeze(0), 22050, format="wav")
         history.append({"role": "assistant", "content": {"path": f.name, "type": "audio/wav"}})
         history.append({"role": "assistant", "content": glm_tokenizer.decode(text_tokens, ignore_special_tokens=False)})
