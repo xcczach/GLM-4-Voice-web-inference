@@ -65,7 +65,7 @@ https://github.com/user-attachments/assets/0163de2d-e876-4999-b1bc-bbfa364b799b
 
 * Tell a ghost story with a mournful voice
 
-https://github.com/user-attachments/assets/3dc85f6d-5be8-407a-b9c5-f8816c56f6a3
+https://github.com/user-attachments/assets/a75b2087-d7bc-49fa-a0c5-e8c99935b39a
 
 * Introduce how cold winter is with a Northeastern dialect
 
