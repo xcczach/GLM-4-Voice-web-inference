@@ -98,7 +98,7 @@ https://github.com/user-attachments/assets/c98a4604-366b-4304-917f-3c850a82fe9f
 
 https://github.com/user-attachments/assets/d5ff0815-74f8-4738-b0f1-477cfc8dcc2d
 
-## Acknowledge
+## Acknowledgements
 本项目的部分代码来自：
 * [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)
 * [transformers](https://github.com/huggingface/transformers)
