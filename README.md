@@ -15,11 +15,11 @@ GLM-4-Voice 由三个部分组成：
 
 ## Model List
 
-|         Model         | Type |      Download      |
-|:---------------------:| :---: |:------------------:|
-| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
-|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
-| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
+|         Model         | Type |                                                                     Download                                                                     |
+|:---------------------:| :---: |:------------------------------------------------------------------------------------------------------------------------------------------------:|
+| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-tokenizer) |
+|    GLM-4-Voice-9B     | Chat Model |                                          [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-9b)                                           
+| GLM-4-Voice-Decoder   | Speech Decoder |                                        [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-decoder)                                        
 
 ## Usage
 我们提供了可以直接启动的 Web Demo。用户可以输入语音或文本，模型会同时给出语音和文字回复。
