@@ -48,12 +48,13 @@ git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 ```shell
 python model_server.py --model-path glm-4-voice-9b
 ```
+此命令会自动下载 `glm-4-voice-9b`。如果网络条件不好，也手动下载之后通过 `--model-path` 指定本地的路径。
 
 然后启动 web 服务
 ```shell
 python web_demo.py
 ```
-即可在 http://127.0.0.1:8888 访问 web demo。
+即可在 http://127.0.0.1:8888 访问 web demo。此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer-path` 和 `--model-path` 指定本地的路径。
 
 ### Known Issues
 * Gradio 的流式音频播放效果不稳定。在生成完成后点击对话框中的音频质量会更高。
