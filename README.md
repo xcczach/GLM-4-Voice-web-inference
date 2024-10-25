@@ -1,4 +1,6 @@
 # GLM-4-Voice
+Read this in [English](./README_en.md)
+
 GLM-4-Voice 是智谱 AI 推出的端到端语音模型。GLM-4-Voice 能够直接理解和生成中英文语音，进行实时语音对话，并且能够根据用户的指令改变语音的情感、语调、语速、方言等属性。
 
 ## Model List
@@ -26,7 +28,7 @@ GLM-4-Voice 是智谱 AI 推出的端到端语音模型。GLM-4-Voice 能够直�
 git clone --recurse-submodules https://github.com/THUDM/GLM-4-Voice
 cd GLM-4-Voice
 ```
-然后安装依赖。也可以使用我们提供的镜像 `` 以跳过安装依赖。
+然后安装依赖。
 ```shell
 pip install -r requirements.txt
 ```
