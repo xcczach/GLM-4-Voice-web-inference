@@ -3,7 +3,7 @@ GLM-4-Voice is an end-to-end voice model launched by Zhipu AI. GLM-4-Voice can d
 
 ## Model Architecture
 
-![Model Architecture](./resources/architecture.jpg)
+![Model Architecture](./resources/architecture.jpeg)
 We provide the three components of GLM-4-Voice:
 * GLM-4-Voice-Tokenizer: Trained by adding vector quantization to the encoder part of [Whisper](https://github.com/openai/whisper), converting continuous speech input into discrete tokens. Each second of audio is converted into 12.5 discrete tokens.
 * GLM-4-Voice-9B: Pre-trained and aligned on speech modality based on [GLM-4-9B](https://github.com/THUDM/GLM-4), enabling understanding and generation of discretized speech.
