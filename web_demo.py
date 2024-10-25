@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
 
     def clear_fn():
-        return [], [], '', '', '', None
+        return [], [], '', '', '', None, None
 
 
     def inference_fn(
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 
                     tts_speechs.append(tts_speech.squeeze())
                     tts_mels.append(tts_mel)
-                    yield history, inputs, '', '', (22050, tts_speech.squeeze().cpu().numpy())
+                    yield history, inputs, '', '', (22050, tts_speech.squeeze().cpu().numpy()), None
                     flow_prompt_speech_token = torch.cat((flow_prompt_speech_token, tts_token), dim=-1)
                     audio_tokens = []
                 if not is_finalize:
@@ -160,7 +160,7 @@ if __name__ == "__main__":
             torchaudio.save(f, tts_speech.unsqueeze(0), 22050, format="wav")
         history.append({"role": "assistant", "content": {"path": f.name, "type": "audio/wav"}})
         history.append({"role": "assistant", "content": glm_tokenizer.decode(text_tokens, ignore_special_tokens=False)})
-        yield history, inputs, complete_text, '', None
+        yield history, inputs, complete_text, '', None, (22050, tts_speech.numpy())
 
 
     def update_input_interface(input_mode):
@@ -204,8 +204,9 @@ if __name__ == "__main__":
             with gr.Column():
                 submit_btn = gr.Button("Submit")
                 reset_btn = gr.Button("Clear")
-                output_audio = gr.Audio(label="Last Output Audio (If Any)", show_download_button=True, streaming=True,
-                                        autoplay=True)
+                output_audio = gr.Audio(label="Play", streaming=True,
+                                        autoplay=True, show_download_button=False)
+                complete_audio = gr.Audio(label="Last Output Audio (If Any)", show_download_button=True)
 
 
 
@@ -241,13 +242,13 @@ if __name__ == "__main__":
                 input_tokens,
                 completion_tokens,
             ],
-            outputs=[history_state, input_tokens, completion_tokens, detailed_error, output_audio]
+            outputs=[history_state, input_tokens, completion_tokens, detailed_error, output_audio, complete_audio]
         )
 
         respond.then(lambda s: s, [history_state], chatbot)
 
-        reset_btn.click(clear_fn, outputs=[chatbot, history_state, input_tokens, completion_tokens, detailed_error, output_audio])
-        input_mode.input(clear_fn, outputs=[chatbot, history_state, input_tokens, completion_tokens, detailed_error, output_audio]).then(update_input_interface, inputs=[input_mode], outputs=[audio, text_input])
+        reset_btn.click(clear_fn, outputs=[chatbot, history_state, input_tokens, completion_tokens, detailed_error, output_audio, complete_audio])
+        input_mode.input(clear_fn, outputs=[chatbot, history_state, input_tokens, completion_tokens, detailed_error, output_audio, complete_audio]).then(update_input_interface, inputs=[input_mode], outputs=[audio, text_input])
 
     initialize_fn()
     # Launch the interface
