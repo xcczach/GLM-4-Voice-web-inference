@@ -67,7 +67,7 @@ https://github.com/user-attachments/assets/0163de2d-e876-4999-b1bc-bbfa364b799b
 
 * 用哀怨的声音讲一个鬼故事
 
-https://github.com/user-attachments/assets/3dc85f6d-5be8-407a-b9c5-f8816c56f6a3
+https://github.com/user-attachments/assets/a75b2087-d7bc-49fa-a0c5-e8c99935b39a
 
 * 用东北话介绍一下冬天有多冷
 
