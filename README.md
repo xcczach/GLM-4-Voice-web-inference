@@ -3,19 +3,23 @@ Read this in [English](./README_en.md)
 
 GLM-4-Voice 是智谱 AI 推出的端到端语音模型。GLM-4-Voice 能够直接理解和生成中英文语音，进行实时语音对话，并且能够根据用户的指令改变语音的情感、语调、语速、方言等属性。
 
-## Model List
-|         Model         | Type |      Download      |
-|:---------------------:| :---: |:------------------:|
-| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
-|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
-| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
+## Model Architecture
+![Model Architecture](./resources/architecture.jpg)
 
-我们提供了 GLM-4-Voice 的三个部分：
+GLM-4-Voice 由三个部分组成：
 * GLM-4-Voice-Tokenizer: 通过在 [Whisper](https://github.com/openai/whisper) 的 encoder 部分增加 vector quantization 训练得到，将连续的语音输入转化为离散的 token。每秒音频转化为 12.5 个离散 token。
 * GLM-4-Voice-9B: 在 [GLM-4-9B](https://github.com/THUDM/GLM-4) 的基础上进行语音模态的预训练和对齐，从而能够理解和生成离散化的语音
 * GLM-4-Voice-Decoder: 基于 [CosyVoice](https://github.com/FunAudioLLM/CosyVoice) 重新训练的支持流式推理的语音解码器，将离散化的语音 token 转化为连续的语音输出。最少只需要 10 个音频 token 即可开始生成，降低对话延迟。
 
 更详细的技术报告将在之后公布。
+
+## Model List
+
+|         Model         | Type |      Download      |
+|:---------------------:| :---: |:------------------:|
+| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
+|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
+| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
 
 ## Usage
 我们提供了可以直接启动的 Web Demo。用户可以输入语音或文本，模型会同时给出语音和文字回复。

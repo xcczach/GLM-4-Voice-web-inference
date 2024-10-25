@@ -1,19 +1,22 @@
 # GLM-4-Voice
 GLM-4-Voice is an end-to-end voice model launched by Zhipu AI. GLM-4-Voice can directly understand and generate Chinese and English speech, engage in real-time voice conversations, and change attributes such as emotion, intonation, speech rate, and dialect based on user instructions.
 
-## Model List
-|         Model         | Type |      Download      |
-|:---------------------:| :---: |:------------------:|
-| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
-|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
-| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
+## Model Architecture
 
+![Model Architecture](./resources/architecture.jpg)
 We provide the three components of GLM-4-Voice:
 * GLM-4-Voice-Tokenizer: Trained by adding vector quantization to the encoder part of [Whisper](https://github.com/openai/whisper), converting continuous speech input into discrete tokens. Each second of audio is converted into 12.5 discrete tokens.
 * GLM-4-Voice-9B: Pre-trained and aligned on speech modality based on [GLM-4-9B](https://github.com/THUDM/GLM-4), enabling understanding and generation of discretized speech.
 * GLM-4-Voice-Decoder: A speech decoder supporting streaming inference, retrained based on [CosyVoice](https://github.com/FunAudioLLM/CosyVoice), converting discrete speech tokens into continuous speech output. Generation can start with as few as 10 audio tokens, reducing conversation latency.
 
 A more detailed technical report will be published later.
+
+## Model List
+|         Model         | Type |      Download      |
+|:---------------------:| :---: |:------------------:|
+| GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
+|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
+| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
 
 ## Usage
 We provide a Web Demo that can be launched directly. Users can input speech or text, and the model will respond with both speech and text.
