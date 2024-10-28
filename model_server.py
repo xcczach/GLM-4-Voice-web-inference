@@ -7,7 +7,7 @@ import uuid
 
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from transformers import AutoModel, AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoModel, AutoTokenizer
 import torch
 import uvicorn
 
@@ -56,16 +56,8 @@ class TokenStreamer(BaseStreamer):
 class ModelWorker:
     def __init__(self, model_path, device='cuda'):
         self.device = device
-        bnb_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=torch.bfloat16
-        )
-
         self.glm_model = AutoModel.from_pretrained(model_path, trust_remote_code=True,
-                                                   quantization_config=bnb_config,
-                                                   device_map={"":0}).eval()
+                                                   device=device).to(device).eval()
         self.glm_tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
     @torch.inference_mode()

@@ -34,8 +34,3 @@ wget==3.2
 WeTextProcessing==1.0.3
 torch==2.3.0
 torchaudio==2.3.0
-python-multipart==0.0.12
-
-#  load a 4-bit or 8-bit quantized version 
-bitsandbytes==0.44.1
-accelerate==1.0.1
