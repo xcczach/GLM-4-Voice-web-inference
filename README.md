@@ -71,12 +71,15 @@ python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model_path TH
 ```
 
 即可在 http://127.0.0.1:8888 访问 web demo。
-此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer_path` 和 `--model_path` 指定本地的路径。
+
+此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer_path`, `--flow_path` 和 `--model_path` 指定本地的路径。
 
 ### Known Issues
+
 * Gradio 的流式音频播放效果不稳定。在生成完成后点击对话框中的音频质量会更高。
 
 ## Cases
+
 我们提供了 GLM-4-Voice 的部分对话案例，包括控制情绪、改变语速、生成方言等。
 
 * 用轻柔的声音引导我放松
@@ -120,6 +123,7 @@ https://github.com/user-attachments/assets/d5ff0815-74f8-4738-b0f1-477cfc8dcc2d
 
 ## 协议
 
-+ GLM-4 模型的权重的使用则需要遵循 [模型协议](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE)。
++ GLM-4 模型的权重的使用则需要遵循 [模型协议](https://huggingface.co/THUDM/glm-4-voice-9b/blob/main/LICENSE)。
 
 + 本开源仓库的代码则遵循 [Apache 2.0](LICENSE) 协议。
+
