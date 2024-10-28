@@ -19,11 +19,11 @@ GLM-4-Voice 由三个部分组成：
 
 ## Model List
 
-|         Model         | Type |                                                                     Download                                                                     |
-|:---------------------:| :---: |:------------------------------------------------------------------------------------------------------------------------------------------------:|
+|         Model         |       Type       |                                                                     Download                                                                     |
+|:---------------------:|:----------------:|:------------------------------------------------------------------------------------------------------------------------------------------------:|
 | GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-tokenizer) |
-|    GLM-4-Voice-9B     | Chat Model |                                          [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-9b)                                           
-| GLM-4-Voice-Decoder   | Speech Decoder |                                        [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-decoder)                                        
+|    GLM-4-Voice-9B     |    Chat Model    |        [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-9b)        |
+|  GLM-4-Voice-Decoder  |  Speech Decoder  |   [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder) [🤖 ModelScope](https://modelscope.cn/models/ZhipuAI/glm-4-voice-decoder)   |
 
 ## Usage
 我们提供了可以直接启动的 Web Demo。用户可以输入语音或文本，模型会同时给出语音和文字回复。
@@ -31,6 +31,7 @@ GLM-4-Voice 由三个部分组成：
 ![](resources/web_demo.png)
 
 ### Preparation
+
 首先下载仓库
 ```shell
 git clone --recurse-submodules https://github.com/THUDM/GLM-4-Voice
@@ -48,17 +49,29 @@ git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 ```
 
 ### Launch Web Demo
-首先启动模型服务
+
+1. 启动模型服务
+
 ```shell
-python model_server.py --model-path THUDM/glm-4-voice-9b
+python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
 ```
+
+如果你需要使用 Int4 精度启动，请运行
+
+```shell
+python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
+```
+
 此命令会自动下载 `glm-4-voice-9b`。如果网络条件不好，也手动下载之后通过 `--model-path` 指定本地的路径。
 
-然后启动 web 服务
+2. 启动 web 服务
+
 ```shell
-python web_demo.py
+python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model_path THUDM/glm-4-voice-9b --flow_path THUDM/glm-4-voice-decoder
 ```
-即可在 http://127.0.0.1:8888 访问 web demo。此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer-path` 和 `--model-path` 指定本地的路径。
+
+即可在 http://127.0.0.1:8888 访问 web demo。
+此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer_path` 和 `--model_path` 指定本地的路径。
 
 ### Known Issues
 * Gradio 的流式音频播放效果不稳定。在生成完成后点击对话框中的音频质量会更高。
@@ -99,7 +112,14 @@ https://github.com/user-attachments/assets/c98a4604-366b-4304-917f-3c850a82fe9f
 https://github.com/user-attachments/assets/d5ff0815-74f8-4738-b0f1-477cfc8dcc2d
 
 ## Acknowledgements
+
 本项目的部分代码来自：
 * [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)
 * [transformers](https://github.com/huggingface/transformers)
 * [GLM-4](https://github.com/THUDM/GLM-4)
+
+## 协议
+
++ GLM-4 模型的权重的使用则需要遵循 [模型协议](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE)。
+
++ 本开源仓库的代码则遵循 [Apache 2.0](LICENSE) 协议。

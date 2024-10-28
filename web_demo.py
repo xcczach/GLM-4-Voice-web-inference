@@ -8,7 +8,7 @@ import requests
 from argparse import ArgumentParser
 
 import torchaudio
-from transformers import WhisperFeatureExtractor, AutoTokenizer, AutoModel
+from transformers import WhisperFeatureExtractor, AutoTokenizer
 from speech_tokenizer.modeling_whisper import WhisperVQEncoder
 
 
@@ -28,9 +28,9 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--host", type=str, default="0.0.0.0")
     parser.add_argument("--port", type=int, default="8888")
-    parser.add_argument("--flow-path", type=str, default="./glm-4-voice-decoder")
+    parser.add_argument("--flow-path", type=str, default="THUDM/glm-4-voice-decoder")
     parser.add_argument("--model-path", type=str, default="THUDM/glm-4-voice-9b")
-    parser.add_argument("--tokenizer-path", type=str, default="THUDM/glm-4-voice-tokenizer")
+    parser.add_argument("--tokenizer-path", type= str, default="THUDM/glm-4-voice-tokenizer")
     args = parser.parse_args()
 
     flow_config = os.path.join(args.flow_path, "config.yaml")

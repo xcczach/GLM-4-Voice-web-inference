@@ -1,17 +1,25 @@
 """
-A model worker executes the model.
+A model worker with transformers libs executes the model.
+
+Run BF16 inference with:
+
+python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
+
+Run Int4 inference with:
+
+python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
+
 """
 import argparse
 import json
-import uuid
 
 from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer, BitsAndBytesConfig
+from transformers.generation.streamers import BaseStreamer
 import torch
 import uvicorn
 
-from transformers.generation.streamers import BaseStreamer
 from threading import Thread
 from queue import Queue
 
@@ -54,10 +62,21 @@ class TokenStreamer(BaseStreamer):
 
 
 class ModelWorker:
-    def __init__(self, model_path, device='cuda'):
+    def __init__(self, model_path, dtype="bfloat16", device='cuda'):
         self.device = device
-        self.glm_model = AutoModel.from_pretrained(model_path, trust_remote_code=True,
-                                                   device=device).to(device).eval()
+        self.bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.bfloat16
+        ) if dtype == "int4" else None
+
+        self.glm_model = AutoModel.from_pretrained(
+            model_path,
+            trust_remote_code=True,
+            quantization_config=self.bnb_config if self.bnb_config else None,
+            device_map={"": 0}
+        ).eval()
         self.glm_tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
     @torch.inference_mode()
@@ -73,10 +92,16 @@ class ModelWorker:
         inputs = tokenizer([prompt], return_tensors="pt")
         inputs = inputs.to(self.device)
         streamer = TokenStreamer(skip_prompt=True)
-        thread = Thread(target=model.generate,
-                        kwargs=dict(**inputs, max_new_tokens=int(max_new_tokens),
-                                    temperature=float(temperature), top_p=float(top_p),
-                                    streamer=streamer))
+        thread = Thread(
+            target=model.generate,
+            kwargs=dict(
+                **inputs,
+                max_new_tokens=int(max_new_tokens),
+                temperature=float(temperature),
+                top_p=float(top_p),
+                streamer=streamer
+            )
+        )
         thread.start()
         for token_id in streamer:
             yield (json.dumps({"token_id": token_id, "error_code": 0}) + "\n").encode()
@@ -91,7 +116,7 @@ class ModelWorker:
                 "text": "Server Error",
                 "error_code": 1,
             }
-            yield (json.dumps(ret)+ "\n").encode()
+            yield (json.dumps(ret) + "\n").encode()
 
 
 app = FastAPI()
@@ -107,10 +132,13 @@ async def generate_stream(request: Request):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
     parser.add_argument("--host", type=str, default="localhost")
+    parser.add_argument("--dtype", type=str, default="bfloat16")
+    parser.add_argument("--device", type=str, default="cuda:0")
     parser.add_argument("--port", type=int, default=10000)
-    parser.add_argument("--model-path", type=str, default="THUDM/glm-4-voice-9b")
+    parser.add_argument("--model_path", type=str, default="THUDM/glm-4-voice-9b")
     args = parser.parse_args()
 
-    worker = ModelWorker(args.model_path)
+    worker = ModelWorker(args.model_path, args.dtype, args.device)
     uvicorn.run(app, host=args.host, port=args.port, log_level="info")
