@@ -62,12 +62,12 @@ This command will automatically download `glm-4-voice-9b`. If network conditions
 2. Start the web service
 
 ```shell
-python web_demo.py --tokenizer-path THUDM/glm-4-voice-tokenizer --model_path THUDM/glm-4-voice-9b --flow_path THUDM/glm-4-voice-decoder
+python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model-path THUDM/glm-4-voice-9b --flow-path ./glm-4-voice-decoder
 ```
 
-The web demo will then be accessible at http://127.0.0.1:8888.
-
-This command will automatically download `glm-4-voice-tokenizer` and `glm-4-voice-9b`. If network conditions are poor, you can manually download them and specify the local paths using `--tokenizer_path`, `--flow_path`, and `--model_path`.
+You can access the web demo at [http://127.0.0.1:8888](http://127.0.0.1:8888).
+This command will automatically download `glm-4-voice-tokenizer` and `glm-4-voice-9b`. Please note that `glm-4-voice-decoder` needs to be downloaded manually.
+If the network connection is poor, you can manually download these three models and specify the local paths using `--tokenizer-path`, `--flow-path`, and `--model-path`.
 
 ### Known Issues
 * Gradio’s streaming audio playback can be unstable. The audio quality will be higher when clicking on the audio in the dialogue box after generation is complete.

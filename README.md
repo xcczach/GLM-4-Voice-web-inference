@@ -53,13 +53,13 @@ git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 1. 启动模型服务
 
 ```shell
-python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
 ```
 
 如果你需要使用 Int4 精度启动，请运行
 
 ```shell
-python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
 ```
 
 此命令会自动下载 `glm-4-voice-9b`。如果网络条件不好，也手动下载之后通过 `--model-path` 指定本地的路径。
@@ -67,12 +67,14 @@ python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port
 2. 启动 web 服务
 
 ```shell
-python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model_path THUDM/glm-4-voice-9b --flow_path THUDM/glm-4-voice-decoder
+python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model-path THUDM/glm-4-voice-9b --flow-path ./glm-4-voice-decoder
 ```
 
 即可在 http://127.0.0.1:8888 访问 web demo。
 
-此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。如果网络条件不好，也可以手动下载之后通过 `--tokenizer_path`, `--flow_path` 和 `--model_path` 指定本地的路径。
+此命令会自动下载 `glm-4-voice-tokenizer` 和 `glm-4-voice-9b`。 请注意，`glm-4-voice-decoder` 需要手动下载。
+
+如果网络条件不好，可以手动下载这三个模型之后通过 `--tokenizer-path`, `--flow-path` 和 `--model-path` 指定本地的路径。
 
 ### Known Issues
 
