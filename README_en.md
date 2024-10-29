@@ -1,4 +1,5 @@
 # GLM-4-Voice
+
 GLM-4-Voice is an end-to-end voice model launched by Zhipu AI. GLM-4-Voice can directly understand and generate Chinese and English speech, engage in real-time voice conversations, and change attributes such as emotion, intonation, speech rate, and dialect based on user instructions.
 
 ## Model Architecture
@@ -12,11 +13,12 @@ We provide the three components of GLM-4-Voice:
 A more detailed technical report will be published later.
 
 ## Model List
-|         Model         | Type |      Download      |
-|:---------------------:| :---: |:------------------:|
+
+|         Model         |       Type       |                               Download                               |
+|:---------------------:|:----------------:|:--------------------------------------------------------------------:|
 | GLM-4-Voice-Tokenizer | Speech Tokenizer | [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-tokenizer) |
-|    GLM-4-Voice-9B     | Chat Model |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)
-| GLM-4-Voice-Decoder   | Speech Decoder |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)
+|    GLM-4-Voice-9B     |    Chat Model    |    [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-9b)     |
+|  GLM-4-Voice-Decoder  |  Speech Decoder  |  [🤗 Huggingface](https://huggingface.co/THUDM/glm-4-voice-decoder)  |
 
 ## Usage
 We provide a Web Demo that can be launched directly. Users can input speech or text, and the model will respond with both speech and text.
@@ -24,6 +26,7 @@ We provide a Web Demo that can be launched directly. Users can input speech or t
 ![](resources/web_demo.png)
 
 ### Preparation
+
 First, download the repository
 ```shell
 git clone --recurse-submodules https://github.com/THUDM/GLM-4-Voice
@@ -41,16 +44,30 @@ git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 ```
 
 ### Launch Web Demo
-First, start the model service
+
+1. Start the model server
+
 ```shell
-python model_server.py --model-path THUDM/glm-4-voice-9b
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
 ```
 
-Then, start the web service
+If you need to launch with Int4 precision, run
+
 ```shell
-python web_demo.py
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
 ```
-You can then access the web demo at http://127.0.0.1:8888.
+
+This command will automatically download `glm-4-voice-9b`. If network conditions are poor, you can manually download it and specify the local path using `--model-path`.
+
+2. Start the web service
+
+```shell
+python web_demo.py --tokenizer-path  THUDM/glm-4-voice-tokenizer --model-path THUDM/glm-4-voice-9b --flow-path ./glm-4-voice-decoder
+```
+
+You can access the web demo at [http://127.0.0.1:8888](http://127.0.0.1:8888).
+This command will automatically download `glm-4-voice-tokenizer` and `glm-4-voice-9b`. Please note that `glm-4-voice-decoder` needs to be downloaded manually.
+If the network connection is poor, you can manually download these three models and specify the local paths using `--tokenizer-path`, `--flow-path`, and `--model-path`.
 
 ### Known Issues
 * Gradio’s streaming audio playback can be unstable. The audio quality will be higher when clicking on the audio in the dialogue box after generation is complete.
@@ -91,7 +108,14 @@ https://github.com/user-attachments/assets/c98a4604-366b-4304-917f-3c850a82fe9f
 https://github.com/user-attachments/assets/d5ff0815-74f8-4738-b0f1-477cfc8dcc2d
 
 ## Acknowledgements
+
 Some code in this project is from:
 * [CosyVoice](https://github.com/FunAudioLLM/CosyVoice)
 * [transformers](https://github.com/huggingface/transformers)
 * [GLM-4](https://github.com/THUDM/GLM-4)
+
+## License Agreement
+
++ The use of GLM-4 model weights must follow the [Model License Agreement](https://huggingface.co/THUDM/glm-4-voice-9b/blob/main/LICENSE).
+
++ The code in this open-source repository is licensed under the [Apache 2.0](LICENSE) License.
