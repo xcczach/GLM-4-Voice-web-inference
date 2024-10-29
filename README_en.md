@@ -29,7 +29,7 @@ First, download the repository
 git clone --recurse-submodules https://github.com/THUDM/GLM-4-Voice
 cd GLM-4-Voice
 ```
-Then, install the dependencies.
+Then, install the dependencies. You can also use our pre-built docker image `zhipuai/glm-4-voice:0.1` to skip the step.
 ```shell
 pip install -r requirements.txt
 ```
