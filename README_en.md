@@ -48,13 +48,13 @@ git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 1. Start the model server
 
 ```shell
-python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype bfloat16 --device cuda:0
 ```
 
 If you need to launch with Int4 precision, run
 
 ```shell
-python model_server.py --host localhost --model_path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
+python model_server.py --host localhost --model-path THUDM/glm-4-voice-9b --port 10000 --dtype int4 --device cuda:0
 ```
 
 This command will automatically download `glm-4-voice-9b`. If network conditions are poor, you can manually download it and specify the local path using `--model-path`.
