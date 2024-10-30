@@ -45,6 +45,7 @@ pip install -r requirements.txt
 
 ```shell
 # git 模型下载，请确保已安装 git-lfs
+git lfs install
 git clone https://huggingface.co/THUDM/glm-4-voice-decoder
 ```
 
