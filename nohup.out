@@ -1,0 +1,14 @@
+INFO:     Started server process [1948850]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://localhost:9234 (Press CTRL+C to quit)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00, 11.34it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 12.00it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 11.89it/s]
+/home/visitor/miniconda3/envs/lzx-omni-arena/lib/python3.11/site-packages/torch/_jit_internal.py:739: FutureWarning: ignore(True) has been deprecated. TorchScript will now drop the function call on compilation. Use torch.jit.unused now. {}
+  warnings.warn(
+/home/visitor/miniconda3/envs/lzx-omni-arena/lib/python3.11/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
+  warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
+/home/visitor/miniconda3/envs/lzx-omni-arena/lib/python3.11/site-packages/torch/nn/modules/conv.py:306: UserWarning: Plan failed with a cudnnException: CUDNN_BACKEND_EXECUTION_PLAN_DESCRIPTOR: cudnnFinalize Descriptor Failed cudnn_status: CUDNN_STATUS_NOT_SUPPORTED (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:919.)
+  return F.conv1d(input, weight, bias, self.stride,
+INFO:     127.0.0.1:54418 - "POST /glm4voice HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38304 - "POST /glm4voice HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40302 - "POST /glm4voice HTTP/1.1" 200 OK
