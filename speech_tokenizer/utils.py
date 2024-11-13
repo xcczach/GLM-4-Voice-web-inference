@@ -37,7 +37,7 @@ def load_quantize_encoder(model_path):
 _resample_buffer: dict[int, torchaudio.transforms.Resample] = {}
 
 
-def extract_speech_token(model: WhisperVQEncoder, feature_extractor: WhisperFeatureExtractor, utts):
+def extract_speech_token(model: WhisperVQEncoder, feature_extractor: WhisperFeatureExtractor, utts, device: str="cuda"):
     with torch.no_grad():
         audios, indices = [], []
         for idx, utt in enumerate(utts):
@@ -45,13 +45,13 @@ def extract_speech_token(model: WhisperVQEncoder, feature_extractor: WhisperFeat
                 audio, sample_rate = utt
             else:
                 audio, sample_rate = torchaudio.load(utt)
-            audio = audio.cuda()
+            audio = audio.to(device)
             if sample_rate != 16000:
                 if sample_rate not in _resample_buffer:
                     _resample_buffer[sample_rate] = torchaudio.transforms.Resample(
                         orig_freq=sample_rate,
                         new_freq=16000
-                    ).to('cuda')
+                    ).to(device)
                 audio = _resample_buffer[sample_rate](audio)
             # if audio.shape[0] > 1:
             #     audio = audio[:1]
@@ -69,9 +69,9 @@ def extract_speech_token(model: WhisperVQEncoder, feature_extractor: WhisperFeat
         batch_size = 128
         for start in range(0, len(audios), batch_size):
             features = feature_extractor(audios[start: start + batch_size], sampling_rate=16000,
-                                         return_attention_mask=True, return_tensors="pt", device='cuda',
+                                         return_attention_mask=True, return_tensors="pt", device=device,
                                          padding="longest", pad_to_multiple_of=stride)
-            features = features.to(device="cuda")
+            features = features.to(device=device)
             outputs = model(**features)
             speech_tokens = outputs.quantized_token_ids
             attention_mask = features.attention_mask[:, ::model.conv1.stride[0] * model.conv2.stride[0]]

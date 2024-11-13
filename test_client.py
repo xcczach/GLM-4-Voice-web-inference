@@ -3,7 +3,7 @@ import numpy as np
 import soundfile as sf
 import io
 
-url = "http://localhost:9234/glm4voice"
+url = "http://localhost:9235/glm4voice"
 audio_data, sample_rate = sf.read("en_sample.wav")
 data = {"sample_rate": sample_rate, "audio_data": audio_data.tolist()}
 

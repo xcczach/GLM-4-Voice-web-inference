@@ -76,7 +76,7 @@ async def inference(request: Request) -> StreamingResponse:
         temp_audio_path = temp_audio_file.name
         sf.write(temp_audio_path, data=audio_data, samplerate=sample_rate)
         # 提取语音标记
-        audio_tokens = extract_speech_token(whisper_model, feature_extractor, [temp_audio_path])[0]
+        audio_tokens = extract_speech_token(whisper_model, feature_extractor, [temp_audio_path], f"cuda:{device}")[0]
     if len(audio_tokens) == 0:
         raise Exception("No audio tokens extracted")
     audio_tokens = "".join([f"<|audio_{x}|>" for x in audio_tokens])
