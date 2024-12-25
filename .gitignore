@@ -3,7 +3,7 @@
 *.idea/
 
 # Byte-compiled / optimized / DLL files
-__pycache__/
+__he__/
 *.py[cod]
 *$py.class
 
@@ -170,6 +170,6 @@ ckpts/*
 !ckpts/download.py
 output_audio.wav
 process_log.txt
-*.pt
+**/*.pt
 nohup.out
 process_log.txt

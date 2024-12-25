@@ -21,6 +21,7 @@ from speech_tokenizer.modeling_whisper import WhisperVQEncoder
 from speech_tokenizer.utils import extract_speech_token
 from flow_inference import AudioDecoder
 import soundfile as sf
+import setproctitle
 
 # 定义 TokenStreamer 类
 class TokenStreamer(BaseStreamer):
@@ -194,6 +195,7 @@ def hangup():
     torch.cuda.empty_cache()
 
 if __name__ == "__main__":
+    setproctitle.setproctitle("glm4voice-web-inference")
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=9234)
     parser.add_argument("--api-name", type=str, default="glm4voice")
