@@ -21,3 +21,9 @@ python main.py
 The API will be available at `http://localhost:9234/glm4voice` by default. You can change the port with `--port` and the API name with `--api-name`.
 
 `test_client.py` provides a sample call to the API.
+
+If the API call fails, you may need to do the steps below:
+```bash
+git lfs install
+git clone https://huggingface.co/THUDM/glm-4-voice-decoder
+```
