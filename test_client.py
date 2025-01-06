@@ -1,5 +1,4 @@
 import requests
-import numpy as np
 import soundfile as sf
 import io
 import argparse
