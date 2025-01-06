@@ -2,8 +2,13 @@ import requests
 import numpy as np
 import soundfile as sf
 import io
+import argparse
 
-url = "http://localhost:9235/glm4voice"
+parser = argparse.ArgumentParser()
+parser.add_argument("--port", type=int, default=9234)
+args = parser.parse_args()
+
+url = f"http://localhost:{args.port}/glm4voice"
 audio_data, sample_rate = sf.read("en_sample.wav")
 data = {"sample_rate": sample_rate, "audio_data": audio_data.tolist()}
 
